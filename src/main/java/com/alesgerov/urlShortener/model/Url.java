@@ -1,14 +1,13 @@
 package com.alesgerov.urlShortener.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyGroup;
+import org.hibernate.annotations.Type;
 import org.springframework.context.annotation.Lazy;
 
 /**
@@ -19,6 +18,7 @@ import org.springframework.context.annotation.Lazy;
 @Table(name = "url_table")
 @Getter
 @ToString
+@Setter
 public class Url {
 
     @Id
@@ -27,6 +27,8 @@ public class Url {
     @Column
     private String shortUrl;
 
-    @Column
+    @Column(length = 100000)
+    @Basic(fetch = FetchType.LAZY)
+    //TODO make it for big datas also
     private String longUrl;
 }

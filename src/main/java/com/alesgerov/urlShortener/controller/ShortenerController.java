@@ -1,8 +1,10 @@
 package com.alesgerov.urlShortener.controller;
 
 import com.alesgerov.urlShortener.dto.ShortenDto;
+import com.alesgerov.urlShortener.service.ShortenerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -14,13 +16,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 public class ShortenerController {
 
+    private final ShortenerService service;
+
     @PostMapping("data/shorten")
-    public String shorten(@Valid @RequestBody ShortenDto shortenDto) {
-        return "shortUrl";
+    public ResponseEntity<String> shorten(@Valid @RequestBody ShortenDto shortenDto) {
+        return ResponseEntity.ok(service.shortenUrl(shortenDto));
     }
 
-    @GetMapping("shortUrl")
-    public String getShortUrl() {
-        return "shortUrl";
-    }
 }
