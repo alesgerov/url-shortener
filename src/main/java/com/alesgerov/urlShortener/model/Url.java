@@ -4,11 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.LazyGroup;
-import org.hibernate.annotations.Type;
-import org.springframework.context.annotation.Lazy;
 
 /**
  * @author Alasgarov Tofig

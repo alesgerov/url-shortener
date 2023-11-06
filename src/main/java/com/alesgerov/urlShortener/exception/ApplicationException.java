@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApplicationException  extends RuntimeException  {
+public class ApplicationException extends RuntimeException {
     private HttpStatus httpStatus;
     private String message;
     private Errors errors;

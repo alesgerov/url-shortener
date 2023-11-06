@@ -17,19 +17,19 @@ public class HashingUtilsTest {
 
     @Test
     @DisplayName("hash 2009215674938")
-    public void testCase1(){
+    public void testCase1() {
 
-        var url= HashingUtils.hashByBase62(2009215674938L);
+        var url = HashingUtils.hashByBase62(2009215674938L);
 
-        assertEquals("ucde9nz",url);
+        assertEquals("ucde9nz", url);
     }
 
     @Test
     @DisplayName("hash 11157")
-    public void testCase2(){
+    public void testCase2() {
 
-        var url= HashingUtils.hashByBase62(11157L);
+        var url = HashingUtils.hashByBase62(11157L);
 
-        assertEquals("XT2",url);
+        assertEquals("XT2", url);
     }
 }
