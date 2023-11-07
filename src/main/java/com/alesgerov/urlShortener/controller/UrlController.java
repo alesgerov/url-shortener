@@ -1,6 +1,5 @@
 package com.alesgerov.urlShortener.controller;
 
-import com.alesgerov.urlShortener.service.ShortenerService;
 import com.alesgerov.urlShortener.service.UrlService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

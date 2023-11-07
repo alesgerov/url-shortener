@@ -1,7 +1,6 @@
 package com.alesgerov.urlShortener.service;
 
 import com.alesgerov.urlShortener.dto.ShortenDto;
-import com.alesgerov.urlShortener.model.Url;
 
 /**
  * @author Alasgarov Tofig

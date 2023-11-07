@@ -1,16 +1,9 @@
 package com.alesgerov.urlShortener.service.impl;
 
-import com.alesgerov.urlShortener.constants.ResponseCodes;
 import com.alesgerov.urlShortener.dto.ShortenDto;
-import com.alesgerov.urlShortener.exception.ApplicationException;
-import com.alesgerov.urlShortener.model.Url;
-import com.alesgerov.urlShortener.repo.UrlRepo;
 import com.alesgerov.urlShortener.service.ShortenerService;
 import com.alesgerov.urlShortener.service.UrlService;
-import com.alesgerov.urlShortener.utils.HashingUtils;
-import com.alesgerov.urlShortener.utils.UniqueIdGenerator;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 /**

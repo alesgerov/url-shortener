@@ -1,8 +1,6 @@
 package com.alesgerov.urlShortener.service.impl;
 
-import com.alesgerov.urlShortener.constants.ResponseCodes;
 import com.alesgerov.urlShortener.dto.ShortenDto;
-import com.alesgerov.urlShortener.exception.ApplicationException;
 import com.alesgerov.urlShortener.model.Url;
 import com.alesgerov.urlShortener.repo.UrlRepo;
 import com.alesgerov.urlShortener.service.UrlService;
@@ -11,7 +9,6 @@ import com.alesgerov.urlShortener.utils.UniqueIdGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBloomFilter;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,7 +28,7 @@ public class UrlServiceImpl implements UrlService {
         var longUrl = urlRedisService.getResponse(shortUrl);
         if (longUrl == null) {
             var optionalLongUrl = urlRepo.findLongUrlByShortUrl(shortUrl);
-            if (optionalLongUrl.isPresent()){
+            if (optionalLongUrl.isPresent()) {
                 urlRedisService.saveResponse(shortUrl, longUrl);
                 shortUrlFilter.add(shortUrl);
                 return optionalLongUrl.get();
