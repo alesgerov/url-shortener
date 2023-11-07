@@ -1,8 +1,8 @@
 package com.alesgerov.urlShortener.service.impl;
 
 import com.alesgerov.urlShortener.service.FilterService;
-import lombok.RequiredArgsConstructor;
 import org.redisson.api.RBloomFilter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,15 +10,17 @@ import org.springframework.stereotype.Service;
  * @date 11/7/2023
  */
 @Service
-@RequiredArgsConstructor
 public class BloomFilterServiceImpl implements FilterService {
 
     private final RBloomFilter<String> shortUrlFilter;
 
+    public BloomFilterServiceImpl(@Qualifier("shortUrlBloomFilter") RBloomFilter<String> shortUrlFilter) {
+        this.shortUrlFilter = shortUrlFilter;
+    }
+
     @Override
-    //TODO fix it
-    public boolean isExists(String shortUrl) {
-        return shortUrlFilter.contains(shortUrl);
+    public boolean isExists(String longUrl) {
+        return shortUrlFilter.contains(longUrl);
     }
 
 }

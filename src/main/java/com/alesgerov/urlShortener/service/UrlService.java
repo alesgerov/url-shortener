@@ -8,7 +8,8 @@ import com.alesgerov.urlShortener.model.Url;
  * @date 11/8/2023
  */
 public interface UrlService {
-    String getUrl(String shortUrl);
+    String getLongUrl(String shortUrl);
+    String getShortUrl(String longUrl);
 
     Url createUrl(ShortenDto shortenDto);
 }

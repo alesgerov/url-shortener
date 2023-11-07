@@ -30,14 +30,13 @@ public class ApplicationConfig {
         return Redisson.create(config);
     }
 
-    @Bean
-    public RBloomFilter<String> createBloomFilter() {
-        RBloomFilter<String> stringRBloomFilter = getRedisClient(getConfig())
-                .getBloomFilter("shortUrls");
+    @Bean("shortUrlBloomFilter")
+    public RBloomFilter<String> shortUrlBloomFilter() {
+        RBloomFilter<String> stringRBloomFilter =
+                getRedisClient(getConfig())
+                        .getBloomFilter("short-urls");
 
-        //Set expectedInsertions and falseProbability
         stringRBloomFilter.tryInit(99999, 0.001);
-
 
         return stringRBloomFilter;
     }

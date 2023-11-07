@@ -23,7 +23,7 @@ public class UrlController {
     public void method(
             @PathVariable String shortUrl,
             HttpServletResponse httpServletResponse) {
-        httpServletResponse.setHeader("Location", service.getUrl(shortUrl));
+        httpServletResponse.setHeader("Location", service.getLongUrl(shortUrl));
         httpServletResponse.setStatus(301);
     }
 }

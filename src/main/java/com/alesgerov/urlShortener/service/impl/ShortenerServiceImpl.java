@@ -19,10 +19,10 @@ public class ShortenerServiceImpl implements ShortenerService {
 
     @Override
     public ShortenDto shortenUrl(ShortenDto shortenDto) {
-        boolean isExists = bloomFilterService.isExists(shortenDto.getShortUrl());
+        boolean isExists = bloomFilterService.isExists(shortenDto.getLongUrl());
         String shortUrl;
         if (isExists) {
-            shortUrl = urlService.getUrl(shortenDto.getShortUrl());
+            shortUrl = urlService.getShortUrl(shortenDto.getLongUrl());
             if (shortUrl != null) {
                 return new ShortenDto(shortUrl);
             }

@@ -16,4 +16,7 @@ public interface UrlRepo extends JpaRepository<Url, Long> {
 
     @Query(nativeQuery = true, value = "select long_url from url_table where short_url=:shortUrl")
     Optional<String> findLongUrlByShortUrl(@Param("shortUrl") String shortUrl);
+
+    @Query(nativeQuery = true, value = "select short_url from url_table where long_url=:longUrl")
+    Optional<String> findShortUrlByLongUrl(@Param("longUrl") String longUrl);
 }
