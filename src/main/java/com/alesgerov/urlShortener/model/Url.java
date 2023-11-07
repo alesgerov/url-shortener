@@ -22,8 +22,7 @@ public class Url {
     @Column
     private String shortUrl;
 
-    @Column(length = 100000)
+    @Column(columnDefinition = "TEXT")
     @Basic(fetch = FetchType.LAZY)
-    //TODO make it for big datas also
     private String longUrl;
 }
