@@ -1,6 +1,6 @@
 package com.alesgerov.urlShortener.exception;
 
-import com.alesgerov.urlShortener.constants.Errors;
+import com.alesgerov.urlShortener.constants.ResponseCodes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,22 +18,22 @@ import org.springframework.http.HttpStatus;
 public class ApplicationException extends RuntimeException {
     private HttpStatus httpStatus;
     private String message;
-    private Errors errors;
+    private ResponseCodes responseCode;
 
-    public ApplicationException(String message, Errors errors) {
+    public ApplicationException(String message, ResponseCodes errors) {
         this.httpStatus = HttpStatus.BAD_REQUEST;
         this.message = message;
-        this.errors = errors;
+        this.responseCode = errors;
     }
 
-    public ApplicationException(String message, Errors errors, HttpStatus httpStatus) {
+    public ApplicationException(String message, ResponseCodes errors, HttpStatus httpStatus) {
         this.httpStatus = httpStatus;
         this.message = message;
-        this.errors = errors;
+        this.responseCode = errors;
     }
 
-    public ApplicationException(Errors errors) {
+    public ApplicationException(ResponseCodes errors) {
         this.httpStatus = HttpStatus.BAD_REQUEST;
-        this.errors = errors;
+        this.responseCode = errors;
     }
 }

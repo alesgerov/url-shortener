@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/")
 public class ShortenerController {
 
     private final ShortenerService service;
 
     @PostMapping("data/shorten")
-    public ResponseEntity<String> shorten(@Valid @RequestBody ShortenDto shortenDto) {
+    public ResponseEntity<ShortenDto> shorten(@Valid @RequestBody ShortenDto shortenDto) {
         return ResponseEntity.ok(service.shortenUrl(shortenDto));
     }
 

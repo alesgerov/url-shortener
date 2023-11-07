@@ -1,6 +1,6 @@
 package com.alesgerov.urlShortener.service.impl;
 
-import com.alesgerov.urlShortener.constants.Errors;
+import com.alesgerov.urlShortener.constants.ResponseCodes;
 import com.alesgerov.urlShortener.dto.ShortenDto;
 import com.alesgerov.urlShortener.exception.ApplicationException;
 import com.alesgerov.urlShortener.model.Url;
@@ -23,7 +23,8 @@ public class ShortenerServiceImpl implements ShortenerService {
     private final UrlRepo urlRepo;
 
     @Override
-    public String shortenUrl(ShortenDto shortenDto) {
+    public ShortenDto shortenUrl(ShortenDto shortenDto) {
+        ShortenDto response = new ShortenDto();
         var optionalUrl = urlRepo.findUrlByLongUrl(shortenDto.getLongUrl());
         if (optionalUrl.isEmpty()) {
             var id = UniqueIdGenerator.generateId();
@@ -36,9 +37,11 @@ public class ShortenerServiceImpl implements ShortenerService {
 
             urlRepo.save(url);
 
-            return hashedUrl;
+            response.setShortUrl(hashedUrl);
+            return response;
         }
-        return optionalUrl.get().getShortUrl();
+        response.setShortUrl(optionalUrl.get().getShortUrl());
+        return response;
     }
 
     @Override
@@ -46,7 +49,7 @@ public class ShortenerServiceImpl implements ShortenerService {
         return urlRepo.findLongUrlByShortUrl(shortUrl)
                 .orElseThrow(() -> new ApplicationException(
                         "Url not found",
-                        Errors.NOT_FOUND,
+                        ResponseCodes.NOT_FOUND,
                         HttpStatus.NOT_FOUND
                 ));
     }
