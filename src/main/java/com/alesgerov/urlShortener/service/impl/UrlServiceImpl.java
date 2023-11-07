@@ -1,6 +1,8 @@
 package com.alesgerov.urlShortener.service.impl;
 
+import com.alesgerov.urlShortener.constants.ResponseCodes;
 import com.alesgerov.urlShortener.dto.ShortenDto;
+import com.alesgerov.urlShortener.exception.ApplicationException;
 import com.alesgerov.urlShortener.model.Url;
 import com.alesgerov.urlShortener.repo.UrlRepo;
 import com.alesgerov.urlShortener.service.UrlService;
@@ -9,6 +11,7 @@ import com.alesgerov.urlShortener.utils.UniqueIdGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBloomFilter;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,13 +37,22 @@ public class UrlServiceImpl implements UrlService {
     public String getLongUrl(String shortUrl) {
         var longUrl = urlRedisService.getResponse(shortUrl);
         if (longUrl == null) {
-            var optionalLongUrl = urlRepo.findLongUrlByShortUrl(shortUrl);
-            if (optionalLongUrl.isPresent()) {
-                urlRedisService.saveResponse(shortUrl, optionalLongUrl.get());
-                shortUrlFilter.add(optionalLongUrl.get());
-                return optionalLongUrl.get();
-            }
-            return null;
+            return urlRepo
+                    .findLongUrlByShortUrl(shortUrl)
+                    .map(
+                            url -> {
+                                urlRedisService.saveResponse(shortUrl, url);
+                                return url;
+                            }
+                    ).orElseThrow(() -> {
+                                throw new ApplicationException(
+                                        "Url not found",
+                                        ResponseCodes.NOT_FOUND,
+                                        HttpStatus.NOT_FOUND
+
+                                );
+                            }
+                    );
         }
         return longUrl;
     }

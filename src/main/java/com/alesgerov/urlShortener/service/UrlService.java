@@ -9,6 +9,7 @@ import com.alesgerov.urlShortener.model.Url;
  */
 public interface UrlService {
     String getLongUrl(String shortUrl);
+
     String getShortUrl(String longUrl);
 
     Url createUrl(ShortenDto shortenDto);
