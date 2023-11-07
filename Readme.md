@@ -41,3 +41,4 @@ Information
 ![img.png](img.png)
 
 Information Base 62 algorithm
+![img_1.png](img_1.png)

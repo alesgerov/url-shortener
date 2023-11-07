@@ -1,6 +1,7 @@
 package com.alesgerov.urlShortener.controller;
 
 import com.alesgerov.urlShortener.service.ShortenerService;
+import com.alesgerov.urlShortener.service.UrlService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping
 public class UrlController {
 
-    private final ShortenerService service;
+    private final UrlService service;
 
     @GetMapping(value = "/{shortUrl}")
     public void method(

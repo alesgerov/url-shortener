@@ -6,6 +6,7 @@ import com.alesgerov.urlShortener.exception.ApplicationException;
 import com.alesgerov.urlShortener.model.Url;
 import com.alesgerov.urlShortener.repo.UrlRepo;
 import com.alesgerov.urlShortener.service.ShortenerService;
+import com.alesgerov.urlShortener.service.UrlService;
 import com.alesgerov.urlShortener.utils.HashingUtils;
 import com.alesgerov.urlShortener.utils.UniqueIdGenerator;
 import lombok.RequiredArgsConstructor;
@@ -20,37 +21,20 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ShortenerServiceImpl implements ShortenerService {
 
-    private final UrlRepo urlRepo;
+    private final BloomFilterServiceImpl bloomFilterService;
+    private final UrlService urlService;
 
     @Override
     public ShortenDto shortenUrl(ShortenDto shortenDto) {
-        ShortenDto response = new ShortenDto();
-        var optionalUrl = urlRepo.findUrlByLongUrl(shortenDto.getLongUrl());
-        if (optionalUrl.isEmpty()) {
-            var id = UniqueIdGenerator.generateId();
-            var hashedUrl = HashingUtils.hashByBase62(id);
-            Url url = new Url();
-
-            url.setLongUrl(shortenDto.getLongUrl());
-            url.setShortUrl(hashedUrl);
-            url.setId(id);
-
-            urlRepo.save(url);
-
-            response.setShortUrl(hashedUrl);
-            return response;
+        boolean isExists = bloomFilterService.isExists(shortenDto.getShortUrl());
+        String shortUrl;
+        if (isExists) {
+            shortUrl = urlService.getUrl(shortenDto.getShortUrl());
+            if (shortUrl != null) {
+                return new ShortenDto(shortUrl);
+            }
         }
-        response.setShortUrl(optionalUrl.get().getShortUrl());
-        return response;
+        return new ShortenDto(urlService.createUrl(shortenDto).getShortUrl());
     }
 
-    @Override
-    public String getUrl(String shortUrl) {
-        return urlRepo.findLongUrlByShortUrl(shortUrl)
-                .orElseThrow(() -> new ApplicationException(
-                        "Url not found",
-                        ResponseCodes.NOT_FOUND,
-                        HttpStatus.NOT_FOUND
-                ));
-    }
 }

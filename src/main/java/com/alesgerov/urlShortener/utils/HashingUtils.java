@@ -1,6 +1,6 @@
 package com.alesgerov.urlShortener.utils;
 
-import com.alesgerov.urlShortener.constants.MapperConstants;
+import com.alesgerov.urlShortener.constants.Constants;
 
 /**
  * @author Alasgarov Tofig
@@ -17,7 +17,7 @@ public final class HashingUtils {
         while (uniqueId != 0) {
             int reminder = (int) (uniqueId % 62);
 
-            String valueForUrl = MapperConstants.getMappingOfValue(reminder);
+            String valueForUrl = Constants.getMappingOfValue(reminder);
             responseString.append(valueForUrl);
 
             uniqueId = uniqueId / 62;

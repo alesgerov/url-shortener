@@ -5,9 +5,10 @@ import com.alesgerov.urlShortener.model.Url;
 
 /**
  * @author Alasgarov Tofig
- * @date 11/5/2023
+ * @date 11/8/2023
  */
-public interface ShortenerService {
-    ShortenDto shortenUrl(ShortenDto shortenDto);
+public interface UrlService {
+    String getUrl(String shortUrl);
 
+    Url createUrl(ShortenDto shortenDto);
 }

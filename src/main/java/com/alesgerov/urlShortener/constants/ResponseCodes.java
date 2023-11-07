@@ -5,7 +5,8 @@ package com.alesgerov.urlShortener.constants;
  * @created 06.11.23
  */
 public enum ResponseCodes {
-    NOT_FOUND(404, "Not found");
+    NOT_FOUND(404, "Not found"),
+    REDIS_DISABLED(509, "Redis caching is disabled");
 
     private final int responseCode;
     private final String response;
